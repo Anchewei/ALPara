@@ -73,19 +73,24 @@ def GetAL(CorePosX, CorePosY, CoreWeight, Simga_mPCA, Simga_mWPCA):
     
     CoreSijWiWj = []
     CorePos     = np.stack((CorePosX, CorePosY), axis=1)
-    
-    for i, Posi in enumerate(CorePos):
-        for j, Posj in enumerate(CorePos):
-            if j!=i:
-                Sij      = np.linalg.norm(Posi-Posj)
-                SpijPCA  = Sij/Simga_mPCA  # Equation 1, sigma_m from PCA
-                SpijWPCA = Sij/Simga_mWPCA # Equation 1, sigma_m from weighted PCA
-                wiwj     = CoreWeight[i]*CoreWeight[j]
-                CoreSijWiWj.append([SpijPCA, SpijWPCA, wiwj])
-    
-    CoreSijWiWj = np.array(CoreSijWiWj)
 
-    ALuw = np.average(CoreSijWiWj[:, 0]) # Equation 2
-    ALw  = np.average(CoreSijWiWj[:, 1], weights=CoreSijWiWj[:, 2]) # Equation 3
+    if len(CorePos) <= 2:
+        ALuw = -1
+        AL   = -1
+        
+    else:
+        for i, Posi in enumerate(CorePos):
+            for j, Posj in enumerate(CorePos):
+                if j!=i:
+                    Sij      = np.linalg.norm(Posi-Posj)
+                    SpijPCA  = Sij/Simga_mPCA  # Equation 1, sigma_m from PCA
+                    SpijWPCA = Sij/Simga_mWPCA # Equation 1, sigma_m from weighted PCA
+                    wiwj     = CoreWeight[i]*CoreWeight[j]
+                    CoreSijWiWj.append([SpijPCA, SpijWPCA, wiwj])
+        
+        CoreSijWiWj = np.array(CoreSijWiWj)
+    
+        ALuw = np.average(CoreSijWiWj[:, 0]) # Equation 2
+        ALw  = np.average(CoreSijWiWj[:, 1], weights=CoreSijWiWj[:, 2]) # Equation 3
     
     return ALuw, ALw
