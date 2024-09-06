@@ -76,11 +76,11 @@ def GetAL(CorePosX, CorePosY, CoreWeight, Simga_mPCA, Simga_mWPCA):
 
     if len(CorePos) == 1:
         ALuw = -1
-        AL   = -1
+        ALw  = -1
 
     elif len(CorePos) == 2:
         ALuw = -2
-        AL   = -2
+        ALw  = -2
         
     else:
         for i, Posi in enumerate(CorePos):
