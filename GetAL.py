@@ -69,17 +69,18 @@ def GetAL(CorePosX, CorePosY, CoreWeight, Simga_mPCA, Simga_mWPCA):
           the accompanying paper).
     ALw:  The weighted alignment parameter(Equation 3 in the 
           accompanying paper).
-
-    Note: if there are less than or equal to two cores, the 
-          alignment parameters are both undefined (= -1)
     '''
     
     CoreSijWiWj = []
     CorePos     = np.stack((CorePosX, CorePosY), axis=1)
 
-    if len(CorePos) <= 2:
+    if len(CorePos) == 1:
         ALuw = -1
-        ALw  = -1
+        AL   = -1
+
+    elif len(CorePos) == 2:
+        ALuw = -2
+        AL   = -2
         
     else:
         for i, Posi in enumerate(CorePos):
