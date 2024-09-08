@@ -1,6 +1,6 @@
 ![alt text](https://github.com/Anchewei/ALPara/blob/main/Images/AL_Logo.png)
 
-# Alignment Parameters: Quantify Dense Core Alignment in Star Formation Regions
+# Alignment Parameters: Quantifying Dense Core Alignment in Star-forming Regions
 Alignment parameters utilize 2D core positions and core weights to quantitatively assess core alignment. These parameters offer an objective method for measuring core alignment, with higher values indicating more **aligned** configurations and lower values suggesting more **clustered** arrangements. To employ these parameters as a two-label classification tool, a threshold of 3.3 can be used to differentiate between "clustered" and "aligned" categories.
 
 ![alt text](https://github.com/Anchewei/ALPara/blob/main/Images/ALuwIllus.png)
