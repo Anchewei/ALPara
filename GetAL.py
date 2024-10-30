@@ -1,5 +1,22 @@
 import numpy as np
 
+def GetWeightedSTD(values, weights):
+    '''
+    Calculate the weighted standard deviation.
+    ref: https://stackoverflow.com/questions/2413522/weighted-standard-deviation-in-numpy
+
+    Parameters
+    ----------
+    values:    Array of values for the standard deviation calculation
+    weights:   Weights associated with the values array
+    '''
+    
+    average = np.average(values, weights=weights)
+    # Fast and numerically precise:
+    variance = np.average((values-average)**2, weights=weights)
+    
+    return np.sqrt(variance)
+
 def GetEign(CorePosX, CorePosY, CoreWeight=None):
     '''
     Calculates the eigenvalues and eigenvectors (principal axes) 
@@ -76,11 +93,15 @@ def GetAL(CorePosX, CorePosY, CoreWeight, Simga_mPCA, Simga_mWPCA):
 
     if len(CorePos) == 1:
         ALuw = -1
-        ALw  = -1
+        AL   = -1
+        Sigma_ALuw = 0
+        Sigma_ALw  = 0
 
     elif len(CorePos) == 2:
         ALuw = -2
-        ALw  = -2
+        AL   = -2
+        Sigma_ALuw = 0
+        Sigma_ALw  = 0
         
     else:
         for i, Posi in enumerate(CorePos):
@@ -96,5 +117,8 @@ def GetAL(CorePosX, CorePosY, CoreWeight, Simga_mPCA, Simga_mWPCA):
     
         ALuw = np.average(CoreSijWiWj[:, 0]) # Equation 2
         ALw  = np.average(CoreSijWiWj[:, 1], weights=CoreSijWiWj[:, 2]) # Equation 3
+
+        Sigma_ALuw = np.std(CoreSijWiWj[:, 0])/np.sqrt(len(CoreSijWiWj)) # the error of the mean
+        Sigma_ALw  = GetWeightedSTD(CoreSijWiWj[:, 1], weights=CoreSijWiWj[:, 2])/np.sqrt(len(CoreSijWiWj)) # the error of the mean (calculate weighted inside the function)
     
-    return ALuw, ALw
+    return ALuw, ALw, Sigma_ALuw, Sigma_ALw
