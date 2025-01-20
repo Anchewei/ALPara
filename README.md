@@ -5,7 +5,7 @@ Alignment parameters utilize 2D core positions and core weights to quantitativel
 
 ![alt text](https://github.com/Anchewei/ALPara/blob/main/Images/ALuwIllus.png)
 
-If these alignment parameters are used in published work, please cite the relevant paper (TBA). This paper details the derivation of the parameters, their performance testing, and the determination of the classification threshold. Additionally, the parameters are applied to the 1.3 mm dust continuum images from the ASHES survey (PI: P. Sanhueza) to investigate the relationship between core alignment and clump-scale properties.
+If these alignment parameters are used in published work, please cite the [relevant paper](https://iopscience.iop.org/article/10.3847/1538-4357/ad9a5b). This paper details the derivation of the parameters, their performance testing, and the determination of the classification threshold. Additionally, the parameters are applied to the 1.3 mm dust continuum images from the ASHES survey (PI: P. Sanhueza) to investigate the relationship between core alignment and clump-scale properties.
 
 ## Dependencies
 * NumPy,
